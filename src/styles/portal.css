@@ -1,0 +1,37 @@
+/* Complementos do portal de chamados ao design system (tokens.css, wiise.css e app.css ficam como na referência). */
+:root { color-scheme: light dark; }
+
+/* Marca no topo de cada página: o logo negativo precisa de fundo escuro, nos dois temas. */
+.wz-brand { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-5); }
+.wz-brand__mark { display: inline-flex; align-items: center; height: 36px; padding: 0 var(--space-3); background: var(--surface-inverse); border-radius: var(--radius-md); }
+.wz-brand__mark img { height: 16px; display: block; }
+
+.wz-field__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); }
+.wz-field__head > label { font-size: 13px; line-height: 18px; font-weight: 600; }
+
+/* Selects */
+.wz-select--btn > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wz-select:disabled { opacity: 0.55; cursor: not-allowed; }
+.wz-selectbox__menu { max-height: 280px; overflow: auto; }
+.wz-check { accent-color: var(--action); margin: 0; pointer-events: none; }
+
+/* Editor */
+.wz-textarea__tools button.wz-tool--text { width: auto; padding: 0 var(--space-2); font-size: 12px; }
+.wz-textarea--code textarea { font: 400 13px/20px var(--font-mono); min-height: 128px; white-space: pre; overflow-x: auto; }
+
+/* Datas */
+.wz-datetime { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); max-width: 420px; }
+.wz-input--date { max-width: 210px; }
+
+/* Confirmação */
+.wz-notice--ok { background: var(--success-soft); }
+.wz-notice--ok .wz-notice__mark { background: var(--success); }
+.wz-dl--cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4) var(--space-5); }
+.wz-dl dd { white-space: pre-wrap; overflow-wrap: anywhere; }
+.wz-code { margin: 0; padding: var(--space-3); background: var(--surface-200); border-radius: var(--radius-md); font: 400 13px/20px var(--font-mono); overflow-x: auto; white-space: pre; }
+h2[tabindex="-1"]:focus { outline: none; }
+
+@media (max-width: 720px) {
+  .wz-dl--cols, .wz-datetime { grid-template-columns: 1fr; }
+  .wz-input--date { max-width: none; }
+}

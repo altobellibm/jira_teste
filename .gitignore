@@ -1,0 +1,5 @@
+/referencia estilo
+node_modules
+dist
+.env
+*.tsbuildinfo
