@@ -6,6 +6,19 @@
 .wz-brand__mark { display: inline-flex; align-items: center; height: 36px; padding: 0 var(--space-3); background: var(--surface-inverse); border-radius: var(--radius-md); }
 .wz-brand__mark img { height: 16px; display: block; }
 
+/* Todas as páginas têm a mesma largura (cartão de 760px no computador). Sem `width: 100%`, a página encolheria ao conteúdo,
+   porque #root é uma coluna flex e .wz-page tem margin auto: um formulário curto ficaria estreito e um longo, largo.
+   Campos curtos em duas colunas, textos longos na linha inteira. */
+.wz-page--wide { width: 100%; max-width: calc(760px + 2 * var(--space-5)); }
+.wz-page--wide .wz-card__body { padding: var(--space-6); }
+.wz-formgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5) var(--space-6); align-items: start; }
+.wz-field--full { grid-column: 1 / -1; }
+.wz-formgrid .wz-textarea textarea { min-height: 140px; }
+.wz-formgrid .wz-field--full:last-child .wz-textarea textarea { min-height: 220px; } /* formulário só com Resumo e Descrição */
+.wz-formgrid .wz-datetime { max-width: none; }
+.wz-formgrid .wz-input--date { max-width: none; }
+.wz-dl__full { grid-column: 1 / -1; }
+
 .wz-field__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); }
 .wz-field__head > label { font-size: 13px; line-height: 18px; font-weight: 600; }
 
@@ -31,7 +44,11 @@
 .wz-code { margin: 0; padding: var(--space-3); background: var(--surface-200); border-radius: var(--radius-md); font: 400 13px/20px var(--font-mono); overflow-x: auto; white-space: pre; }
 h2[tabindex="-1"]:focus { outline: none; }
 
+@media (max-width: 900px) {
+  .wz-formgrid { grid-template-columns: 1fr; }
+}
 @media (max-width: 720px) {
   .wz-dl--cols, .wz-datetime { grid-template-columns: 1fr; }
   .wz-input--date { max-width: none; }
+  .wz-page--wide .wz-card__body { padding: var(--space-5); }
 }

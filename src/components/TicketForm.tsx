@@ -1,5 +1,6 @@
 import { useState, type FormEvent, type ReactNode } from 'react';
 import { api } from '../api/client';
+import { fieldSpans } from '../forms/layout';
 import { CURRENT_USER } from '../forms/lists';
 import { buildTicketInput, ticketDetails } from '../forms/ticket';
 import type { FormDef, Value, Values } from '../forms/types';
@@ -21,6 +22,7 @@ export function TicketForm({ form, values, onChange, onCreated, header }: {
   const [busy, setBusy] = useState(false);
   const [failure, setFailure] = useState('');
   const errors = form && shown.formId === form.id ? shown.errors : {};
+  const spans = fieldSpans(form?.fields ?? []);
 
   const change = (id: string, value: Value) => {
     onChange(id, value);
@@ -49,18 +51,21 @@ export function TicketForm({ form, values, onChange, onCreated, header }: {
         <p className="wz-muted" style={{ fontSize: 14 }}>
           Os campos obrigatórios estão marcados com <span className="wz-req">*</span>.
         </p>
-        {header}
-        {form && form.fields.map((f) => (
-          <Field
-            key={f.id} label={f.label} required={f.required} error={errors[f.id]} htmlFor={`f-${f.id}`}
-            aside={f.assignToMe && (
-              <button type="button" className="wz-link wz-linkbtn" style={{ fontSize: 13 }}
-                onClick={() => change(f.id, CURRENT_USER.id)}>Atribuir a mim</button>
-            )}
-          >
-            <FieldControl field={f} value={values[f.id]} onChange={(v) => change(f.id, v)} invalid={!!errors[f.id]} />
-          </Field>
-        ))}
+        <div className="wz-formgrid">
+          {header}
+          {form && form.fields.map((f, i) => (
+            <Field
+              key={f.id} label={f.label} required={f.required} error={errors[f.id]} htmlFor={`f-${f.id}`}
+              wide={spans[i] === 'full'}
+              aside={f.assignToMe && (
+                <button type="button" className="wz-link wz-linkbtn" style={{ fontSize: 13 }}
+                  onClick={() => change(f.id, CURRENT_USER.id)}>Atribuir a mim</button>
+              )}
+            >
+              <FieldControl field={f} value={values[f.id]} onChange={(v) => change(f.id, v)} invalid={!!errors[f.id]} />
+            </Field>
+          ))}
+        </div>
         {form && (
           <>
             {failure && <span className="wz-error" role="alert">{failure}</span>}

@@ -1,5 +1,6 @@
 import type { NewTicketInput } from '../api/types';
 import { formatDate, formatDateTime } from './datetime';
+import { isFullWidth } from './layout';
 import type { FieldDef, FormDef, Value, Values } from './types';
 
 const EMPTY = '—';
@@ -47,7 +48,7 @@ export function buildTicketInput(form: FormDef, values: Values): NewTicketInput 
   };
 }
 
-export interface Detail { label: string; value: string; code?: boolean }
+export interface Detail { label: string; value: string; code?: boolean; wide?: boolean }
 
 /** Linhas da confirmação: tipo do ticket e, depois, todos os campos preenchidos (menos o Resumo). */
 export function ticketDetails(form: FormDef, values: Values): Detail[] {
@@ -58,6 +59,6 @@ export function ticketDetails(form: FormDef, values: Values): Detail[] {
   ];
   const fields = form.fields
     .filter((f) => f.id !== 'summary')
-    .map((f): Detail => ({ label: f.label, value: displayValue(f, values[f.id]), code: f.kind === 'code' }));
+    .map((f): Detail => ({ label: f.label, value: displayValue(f, values[f.id]), code: f.kind === 'code', wide: isFullWidth(f) }));
   return [...meta, ...fields];
 }

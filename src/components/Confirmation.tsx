@@ -24,7 +24,7 @@ export function Confirmation({ created, onAnother }: { created: Created; onAnoth
         </div>
         <dl className="wz-dl wz-dl--cols">
           {details.map((d, i) => (
-            <div key={`${i}-${d.label}`}>
+            <div key={`${i}-${d.label}`} className={d.wide ? 'wz-dl__full' : undefined}>
               <dt>{d.label}</dt>
               <dd>{d.code ? <pre className="wz-code">{d.value}</pre> : d.value}</dd>
             </div>

@@ -6,7 +6,7 @@ import { isMock } from '../api/client';
 export function PageShell({ title, children }: { title: string; children: ReactNode }) {
   useEffect(() => { document.title = `${title} · Wiise`; }, [title]);
   return (
-    <main className="wz-page">
+    <main className="wz-page wz-page--wide">
       <header className="wz-brand">
         <span className="wz-brand__mark"><img src={logo} alt="Wiise" /></span>
         {isMock && <span className="wz-badge wz-badge--neutral">Demonstração</span>}
